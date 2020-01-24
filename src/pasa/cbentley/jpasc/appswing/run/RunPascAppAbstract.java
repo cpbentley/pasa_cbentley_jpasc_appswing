@@ -13,7 +13,7 @@ import pasa.cbentley.core.src4.ctx.UCtx;
 import pasa.cbentley.core.src4.helpers.StringBBuilder;
 import pasa.cbentley.core.src4.interfaces.IPrefs;
 import pasa.cbentley.core.src4.logging.BaseDLogger;
-import pasa.cbentley.core.src4.logging.IConfig;
+import pasa.cbentley.core.src4.logging.IDLogConfig;
 import pasa.cbentley.core.src4.logging.ITechTags;
 import pasa.cbentley.jpasc.appswing.ctx.PascAppCtx;
 import pasa.cbentley.jpasc.appswing.frame.FrameReferenceAgreement;
