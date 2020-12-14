@@ -1,11 +1,10 @@
 package pasa.cbentley.jpasc.appswing.ctx;
 
-import com.github.davidbolet.jpascalcoin.api.model.Account;
-import com.github.davidbolet.jpascalcoin.api.model.Block;
-import com.github.davidbolet.jpascalcoin.api.model.PublicKey;
-
 import pasa.cbentley.jpasc.pcore.domain.java.PublicKeyJava;
 import pasa.cbentley.jpasc.pcore.interfaces.IAccessPascal;
+import pasa.cbentley.jpasc.pcore.rpc.model.Account;
+import pasa.cbentley.jpasc.pcore.rpc.model.Block;
+import pasa.cbentley.jpasc.pcore.rpc.model.PublicKey;
 import pasa.cbentley.jpasc.swing.interfaces.IRootTabPane;
 
 public class RootChainPrivate implements IRootTabPane {
@@ -29,44 +28,68 @@ public class RootChainPrivate implements IRootTabPane {
       return null;
    }
 
+   public void showBlockDetails(Block ac) {
+      //here
+   }
+
    public void showAccountDetails(Account ac) {
       // TODO Auto-generated method stub
-      
+
    }
 
    public void showAccountDetails(Integer ac) {
       // TODO Auto-generated method stub
-      
+
    }
 
    public void showAccountOwner(Account ac) {
       // TODO Auto-generated method stub
-      
+
    }
 
    public void showAccountOwner(Integer ac) {
       // TODO Auto-generated method stub
-      
+
    }
 
    public void showBlock(Block ac) {
       // TODO Auto-generated method stub
-      
+
    }
 
    public void showPublicKeyAccounts(PublicKey pk) {
       // TODO Auto-generated method stub
-      
+
    }
 
    public void showPublicKeyJavaAccountNames(PublicKeyJava pk) {
       // TODO Auto-generated method stub
-      
+
    }
 
    public void showPublicKeyJavaAccounts(PublicKeyJava pk) {
       // TODO Auto-generated method stub
-      
+
+   }
+
+   public Integer getAccountLast() {
+      // TODO Auto-generated method stub
+      return null;
+   }
+
+   public Integer getBlockNext(Integer block) {
+      // TODO Auto-generated method stub
+      return null;
+   }
+
+   public Integer getBlockPrev(Integer block) {
+      // TODO Auto-generated method stub
+      return null;
+   }
+
+   public Integer getBlockLast() {
+      // TODO Auto-generated method stub
+      return null;
    }
 
 }
