@@ -1,72 +1,108 @@
 package pasa.cbentley.jpasc.appswing.ctx;
 
 import java.awt.Image;
-import java.util.List;
 
 import pasa.cbentley.core.src4.ctx.ACtx;
 import pasa.cbentley.jpasc.appswing.cmd.PascAppCmd;
 import pasa.cbentley.jpasc.appswing.frame.FramesApp;
 import pasa.cbentley.jpasc.appswing.menu.MenuBarFactoryPascApp;
+import pasa.cbentley.jpasc.appswing.panel.helper.PanelHelperWaitDaemon;
 import pasa.cbentley.jpasc.appswing.panel.tab.TabMainAbstract;
 import pasa.cbentley.jpasc.pcore.ctx.PCoreCtx;
+import pasa.cbentley.jpasc.pcore.network.RPCConnection;
 import pasa.cbentley.jpasc.swing.cmds.ICommandableConnect;
 import pasa.cbentley.jpasc.swing.ctx.PascalSwingCtx;
 import pasa.cbentley.jpasc.swing.others.CentralLogger;
 import pasa.cbentley.jpasc.swing.panels.core.PanelCtxHelperAbstract;
 import pasa.cbentley.jpasc.swing.panels.core.PanelTabConsoleAlone;
 import pasa.cbentley.swing.ctx.SwingCtx;
+import pasa.cbentley.swing.imytab.FrameReference;
 
 public abstract class PascAppCtx extends ACtx implements ICommandableConnect {
 
-   protected final PascAppCmd            cmds;
+   protected PascAppCmd            cmds;
 
-   protected final FramesApp             frames;
+   protected FramesApp             frames;
 
-   private CentralLogger                 logger;
+   private CentralLogger           logger;
 
-   protected final MenuBarFactoryPascApp menuFactory;
+   protected MenuBarFactoryPascApp menuFactory;
 
-   protected PanelTabConsoleAlone        panelConsole;
+   protected PanelTabConsoleAlone  panelConsole;
 
-   protected final PascalSwingCtx        psc;
+   protected final PascalSwingCtx  psc;
 
-   protected final SwingCtx              sc;
+   protected final SwingCtx        sc;
 
-   private TabMainAbstract               tabMain;
+   private TabMainAbstract         tabMain;
 
-   private String                        version;
+   private String                  version;
 
    public PascAppCtx(PascalSwingCtx psc) {
       super(psc.getUCtx());
       this.psc = psc;
       this.sc = psc.getSwingCtx();
-      menuFactory = createMenuFactory();
-      sc.setTabMenuBarFactory(menuFactory);
-      frames = createFrames();
-      cmds = createCmds();
    }
 
    /**
-    * call super to add App specific bundles
-    * @param list
+    * Try to connect
+    * @param panelWaitDaemon
     */
-   public void addI18NKey(List<String> list) {
-      list.add("i18nJPascApp");
+   public boolean cmdDaemonConnection(PanelHelperWaitDaemon panelWaitDaemon) {
+      PCoreCtx pc = this.getPCtx();
+      RPCConnection rpc = new RPCConnection(pc);
+      boolean isConnected = rpc.connectLocalhost();
+      if (isConnected) {
+         pc.setRPCConnection(rpc);
+         //bring visible the main frame
+
+         return true;
+      }
+
+      return false;
    }
 
+   /**
+    * 
+    * @return {@link PascAppCmd}
+    */
    protected abstract PascAppCmd createCmds();
 
+   /**
+    * The {@link FrameReference} that can be created in this application
+    * @return {@link FramesApp}
+    */
    protected abstract FramesApp createFrames();
 
+   /**
+    * 
+    * @return {@link MenuBarFactoryPascApp}
+    */
    protected abstract MenuBarFactoryPascApp createMenuFactory();
 
+   /**
+    * The small panel in the login button for deal with contextual 
+    * @return
+    */
+   public abstract PanelCtxHelperAbstract createPanelCtxHelper();
+
+   /**
+    * The main {@link TabMainAbstract} 
+    * @return
+    */
    protected abstract TabMainAbstract createTabMain();
 
    public PascAppCmd getCmds() {
+      if (cmds == null) {
+         cmds = createCmds();
+      }
       return cmds;
    }
 
    public FramesApp getFrames() {
+      if (frames == null) {
+         frames = createFrames();
+      }
       return frames;
    }
 
@@ -87,6 +123,13 @@ public abstract class PascAppCtx extends ACtx implements ICommandableConnect {
       return tabMain;
    }
 
+   public MenuBarFactoryPascApp getMenuBarFactory() {
+      if (menuFactory == null) {
+         menuFactory = createMenuFactory();
+      }
+      return menuFactory;
+   }
+
    public PanelTabConsoleAlone getPanelConsole() {
       if (panelConsole == null) {
          //setup the gui logger so that we log the user log to be active
@@ -94,13 +137,6 @@ public abstract class PascAppCtx extends ACtx implements ICommandableConnect {
       }
       return panelConsole;
    }
-   
-
-   /**
-    * The small panel in the login button for deal with contextual 
-    * @return
-    */
-   public abstract PanelCtxHelperAbstract createPanelCtxHelper();
 
    public PascalSwingCtx getPascalSwingCtx() {
       return psc;
@@ -122,10 +158,16 @@ public abstract class PascAppCtx extends ACtx implements ICommandableConnect {
       this.version = version;
    }
 
+   /**
+    * Shows the No Connection Frame
+    */
    public void showUIFailure() {
       getFrames().cmdShowNoConnection();
    }
 
+   /**
+    * Shows the Main Window after a daemon connection success.
+    */
    public void showUISuccess() {
       getFrames().cmdShowMainWindow();
    }

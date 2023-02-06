@@ -8,15 +8,24 @@ import pasa.cbentley.jpasc.pcore.ctx.PCoreCtx;
 import pasa.cbentley.jpasc.pcore.network.RPCConnection;
 import pasa.cbentley.jpasc.swing.interfaces.IPrefsPascalSwing;
 
+/**
+ * Provides the basic implementation of user commands for JPasc Swing app.
+ * 
+ * <li> Agree
+ * <li> Connect to Daemon Connection
+ * 
+ * @author Charles Bentley
+ *
+ */
 public abstract class PascAppCmd {
 
    protected final PascAppCtx pac;
 
    public PascAppCmd(PascAppCtx pac) {
       this.pac = pac;
-      
+
    }
-   
+
    public void cmdAgree() {
       //show
       String keyPrefAgree = IPrefsPascalSwing.PREF_AGREE_PREFIX + pac.getVersion();
@@ -31,12 +40,12 @@ public abstract class PascAppCmd {
       }
       //close frame
       FrameReferenceAgreement frameAgree = pac.getFrames().getFrameAgreement();
-      frameAgree.closeFrame();      
+      frameAgree.closeFrame();
    }
 
    public void cmdAgreeNo() {
       // TODO Auto-generated method stub
-      
+
    }
 
    public boolean cmdDaemonConnection(PanelHelperWaitDaemon panelHelperWaitDaemon) {

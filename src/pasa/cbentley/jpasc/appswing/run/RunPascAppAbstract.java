@@ -74,9 +74,13 @@ public abstract class RunPascAppAbstract extends RunPascalSwingAbstract {
       psc.setSwingSkinManager(pascalSkinManager);
    }
 
-   protected void addI18nPascal(List<String> list) {
-      pac.addI18NKey(list);
+   protected final void addI18nPascal(List<String> list) {
+      list.add("i18nJPascApp");
+      addI18nPascalApp(list);
    }
+   
+   protected abstract void addI18nPascalApp(List<String> list);
+
 
    protected void initForPrefsPascal(IPrefs prefs) {
       sc.setResMissingLog(true);
