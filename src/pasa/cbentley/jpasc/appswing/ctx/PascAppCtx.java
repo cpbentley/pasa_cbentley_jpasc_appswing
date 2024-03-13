@@ -39,7 +39,7 @@ public abstract class PascAppCtx extends ACtx implements ICommandableConnect {
    private String                  version;
 
    public PascAppCtx(PascalSwingCtx psc) {
-      super(psc.getUCtx());
+      super(psc.getUC());
       this.psc = psc;
       this.sc = psc.getSwingCtx();
    }

@@ -22,7 +22,7 @@ public abstract class TabMainAbstract extends AbstractMyTab {
    public TabMainAbstract(PascAppCtx pac, String internalID) {
       super(pac.getSwingCtx(), internalID);
       this.pac = pac;
-      this.uc = pac.getUCtx();
+      this.uc = pac.getUC();
       this.psc = pac.getPascalSwingCtx();
    }
 
